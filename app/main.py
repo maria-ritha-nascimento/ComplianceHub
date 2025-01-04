@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.config import Base, engine
 
 app = FastAPI(
     title="ComplianceHub API",
@@ -10,3 +11,6 @@ app = FastAPI(
 from app.routes.risk_routes import router as risk_router
 
 app.include_router(risk_router, prefix="/risks", tags=["Risks"])
+
+# Cria as tabelas no banco de dados
+Base.metadata.create_all(bind=engine)
